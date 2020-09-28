@@ -1,38 +1,41 @@
 package com;
-
-public class address 
+import java.util.Scanner; 
+class address_update 
 {
-	String first_name;
-	String last_name;
-	int age;
-	String address;
-	String city;
-	int zip;
-	String phone_no;
-	String email;
-	
-	address (String start_name,String lst_name, int years,String add,String ct,int zip_code,String number, String mail)
-	{
-		first_name = start_name;
-		last_name=lst_name;
-		age = years;
-		address=add;
-		city=ct;
-		zip=zip_code;
-		phone_no=number;
-		email=mail;
-	}
-	
+	String first_name,last_name,age,address,city,zip,phone_no,email;
 	public void display() 
     { 
 		System.out.println("Emplyee details are: ");
 		System.out.println("Name: "+first_name+" "+last_name+"   Age:"+age+"  Address:"+address+" "+city+" "+zip+"  Contact: "+phone_no+" "+email);	
     }
-	
-	public static void main(String[] args)
+	public void input()
 	{
-		address obj1=new address("Kevin","Pietersen",35,"B-2 Shivalik Heights","Mumbai",256191,"9889988998","kp@gmail.com");
-		obj1.display();
-		
+		Scanner myObj = new Scanner(System.in);
+		System.out.println("Enter your first name: ");
+		first_name = myObj.nextLine();
+		System.out.println("Enter your last name:");
+		last_name=myObj.nextLine();
+		System.out.println("Enter your age: ");
+		age=myObj.nextLine();
+		System.out.println("Enter your address: ");
+		address=myObj.nextLine();
+		System.out.println("Enter your city");
+		city= myObj.nextLine();
+		System.out.println("Enter your zip code: ");
+		zip=myObj.nextLine();
+		System.out.println("Enter your contact no:  ");
+		phone_no=myObj.nextLine();
+		System.out.println("Enter your email_id: ");
+		email=myObj.nextLine();
+	}
+	
+}
+public class address
+{
+	public static void main(String[] args)
+	{	
+		address_update obj1=new address_update();
+		obj1.input();
+		obj1.display();	
 	}
 }
