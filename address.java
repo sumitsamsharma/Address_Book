@@ -57,6 +57,15 @@ class address_update
 	    	return 0;
 	    
 	}
+	public void erase()
+	{
+	    for(int j=0;j<8;j++)
+	    {
+	    	database[j]=" ";
+	    }
+	    
+	}
+
 	
 }
 public class address
@@ -68,7 +77,7 @@ public class address
 		int end=1;
 		while(end!=0)
 		{
-			System.out.println("Enter your choice: 1.New Contact"+" 2.Edit existing contact");
+			System.out.println("Enter your choice: 1.New Contact"+" 2.Edit existing contact"+ " 3.Delete a contact ");
 			int choice=obj3.nextInt();
 			switch(choice)
 		   {
@@ -91,6 +100,17 @@ public class address
 	        	} 
 	        	break;
 	        	       	
+	        case 3:
+	        	System.out.println("Enter first name of the person for deleting");
+	        	Scanner obj2 = new Scanner(System.in);
+	        	String f_name=obj2.nextLine();
+	        	int y=person.search(f_name);
+	        	if(y==1)
+	        	{	
+	        	  person.erase();	
+	        	  System.out.println("Deleted.");
+	        	}
+	        	break;
              } 	       
 		  }
 			
