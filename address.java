@@ -31,57 +31,68 @@ public class address {
 	}
 
 	public static void main(String args[]) {
-		addressBookDict add_dict = new addressBookDict();
 		System.out.println("Welcome to Address Book System");
-		boolean bookLoop = true, innerLoop = true,findBook;
+		boolean book_dict = true,addr_bookFound;
+		boolean addr_book = true;
 		int choice1, choice2;
 		AddressBook book;
+		addressBookDict abd = new addressBookDict();
 		String name;
-		while (bookLoop) {
-			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" + "Enter 0 to exit");
-			choice1 = scanner.nextInt();
-			switch (choice1) {
-			case 1:
-				System.out.println("Enter the name of Address Book");
-				add_dict.addAddressBook(getAddressBook(scanner.nextLine()));
-				break;
-			case 2:
-				System.out.println("Enter the name of Address Book");
-				name = scanner.nextLine();
-				findBook = add_dict.isPresentAddressBook(name);
-				if (findBook == false)
-					System.out.println("Address Book not found");
-				else {
-
-					book = add_dict.returnAddressBook(name);
-					innerLoop=true;
-					while (innerLoop) {
+		while (book_dict) {
+			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" + "Enter 0 Exit");
+			choice1 = Integer.parseInt(scanner.nextLine());
+			switch (choice1) 
+			{
+			  case 1:
+				  System.out.println("Enter the name of Address Book");
+				  abd.addAddressBook(getAddressBook(scanner.nextLine()));
+				  break;
+			  case 2:
+				  System.out.println("Enter the name of Address Book");
+				  name = scanner.nextLine();
+				  addr_bookFound = abd.isPresentAddressBook(name);
+				  if (addr_bookFound == false)
+					  System.out.println("Address Book not found");
+				  else 
+				  {
+					book = abd.returnAddressBook(name);
+					addr_book=true;
+					while (addr_book) 
+					{
 						System.out.println("1. Add contact\n" + "2. View Contacts\n"
 								+ "3. Edit a contact\n" + "4. Delete a contact\n" + "Enter 0 to exit");
-						choice2 =scanner.nextInt();
-						switch (choice2) {
-						case 1:
-							book.addDetails(getContact());
-							break;
-						case 2:
-							book.seeContacts();
-							break;
-						case 3:
-							book.editContact();
-							break;
-						case 4:
-							book.deleteContact();
-							break;
-						default:
-							innerLoop=false;
-							break;
+						choice2 = Integer.parseInt(scanner.nextLine());
+						switch (choice2) 
+						{
+					     	case 1:
+					     		System.out.println("Enter First Name");
+					    		String f_name=scanner.nextLine();
+					    		System.out.println("Enter Last Name");
+					    		String l_name=scanner.nextLine();
+					    		System.out.println("Checking if name exists");
+					    		if(book.checkContacts(f_name,l_name))
+					    			 System.out.println("Enter the details:");
+						    	     book.addDetails(getContact()); 	 
+						    	break;     
+						    case 2:
+							    book.seeContacts();
+							    break;
+						    case 3:
+							    book.editContact();
+							    break;
+						   case 4:
+							    book.deleteContact();
+							    break;
+						   default:
+							  addr_book=false;
+							  break;
 						}
 					}
 				
 				}
 				break;
 			default:
-				bookLoop = false;
+				book_dict = false;
 				break;
 
 			}

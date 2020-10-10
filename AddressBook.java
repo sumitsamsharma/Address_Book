@@ -20,7 +20,7 @@ public class AddressBook extends Contact_details
 		address_book.add(contact);
 	}
 
-	public void viewAllContacts() {
+	public void seeContacts() {
 		for (Contact_details c : address_book) {
 			System.out.println(c);
 		}
@@ -68,13 +68,13 @@ public class AddressBook extends Contact_details
 				System.out.println("Enter Email Id");
 				contact.setEmail(scanner.nextLine());
 				check = true;
+				System.out.println("Contact edited");
 				break;
 			}
 		}
 		if (check == false)
 			System.out.println("Contact not found");
-		else
-			System.out.println("Contact edited");
+			
 	}
 
 	
@@ -89,26 +89,26 @@ class addressBookDict extends AddressBook
 	}
 
 	public boolean isPresentAddressBook(String name) {
-		boolean check = false;
+		boolean found = false;
 		for (AddressBook ab : address_book) {
-			if (ab.getName().equals(name)) {
-				check = true;
+			if (ab.getName()==name) {
+				found = true;
 				break;
 			}
 
 		}
-		return check;
+		return found;
 	}
 
 	public AddressBook returnAddressBook(String name) {
-		AddressBook ret_ab = address_book.get(0);
+		AddressBook addrBookPlace = address_book.get(0);
 		for (AddressBook ab : address_book) {
 			if (ab.getName().equals(name)) {
-				ret_ab = ab;
+				addrBookPlace = ab;
 				break;
 			}
 		}
-		return ret_ab;
+		return addrBookPlace;
 	}
 
 }
