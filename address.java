@@ -38,8 +38,9 @@ public class address {
 		AddressBook book;
 		addressBookDict abd = new addressBookDict();
 		String name;
-		while (book_dict) {
-			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" + "Enter 0 Exit");
+		while (book_dict) 
+		{
+			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" +"3. Search by city\n"+ "Enter 0 Exit");
 			choice1 = Integer.parseInt(scanner.nextLine());
 			switch (choice1) 
 			{
@@ -47,6 +48,13 @@ public class address {
 				  System.out.println("Enter the name of Address Book");
 				  abd.addAddressBook(getAddressBook(scanner.nextLine()));
 				  break;
+				  
+			  case 3:
+				  System.out.println("Enter the name of city");
+				  String city = scanner.nextLine();
+				  abd.searchByCity(city);
+				  break;		  
+  
 			  case 2:
 				  System.out.println("Enter the name of Address Book");
 				  name = scanner.nextLine();
@@ -70,10 +78,15 @@ public class address {
 					    		System.out.println("Enter Last Name");
 					    		String l_name=scanner.nextLine();
 					    		System.out.println("Checking if name exists");
-					    		if(book.checkContacts(f_name,l_name))
-					    			 System.out.println("Enter the details:");
-						    	     book.addDetails(getContact()); 	 
-						    	break;     
+					    		book.seeContacts();
+					    		if (book.checkContacts(f_name,l_name)==false)
+					    		{	
+					    			System.out.println("Enter the details:");
+						    	    book.addDetails(getContact());
+					    		}    
+						    	else
+						    		 System.out.println("Contact exists"); 
+						    	break;
 						    case 2:
 							    book.seeContacts();
 							    break;
@@ -91,8 +104,8 @@ public class address {
 				
 				}
 				break;
-			default:
-				book_dict = false;
+			  default:
+			    book_dict = false;
 				break;
 
 			}
