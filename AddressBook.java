@@ -5,15 +5,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 //import com.AddressBook.cityWiseSearch;  
 public class AddressBook  
 {
-	private HashSet<Contact_details> address_book=new HashSet<Contact_details>();  
+	private HashSet<Contact_details> contactsSet=new HashSet<Contact_details>();  
+	Map<String,ArrayList<Contact_details>> city_map = new HashMap<>();
+	Map<String,ArrayList<Contact_details>> state_map = new HashMap<>();
 	
-	//ArrayList<cityWiseSearch> cityNameList=new ArrayList<cityWiseSearch>(); 
 	
 	private String name;
 	static Scanner scanner=new Scanner(System.in);
@@ -21,11 +23,11 @@ public class AddressBook
 	
 	
 	public HashSet<Contact_details> getAddress_book() {
-		return address_book;
+		return contactsSet;
 	}
 
 	public void setAddress_book(HashSet<Contact_details> address_book) {
-		this.address_book = address_book;
+		this.contactsSet = address_book;
 	}
 
 	public void setName(String name) {
@@ -38,20 +40,20 @@ public class AddressBook
 
 	
 	public void seeContacts() {
-		for (Contact_details c : address_book) {
+		for (Contact_details c : contactsSet) {
 			System.out.println(c);
 		}
 	}
 	
 	public void addDetails(Contact_details contact) 
 	{
-		address_book.add(contact);
+		contactsSet.add(contact);
 		
 	}
 	
 	public boolean checkContacts(String f,String l) 
 	{
-		return address_book.stream().anyMatch(contact -> contact.getFirstName().equalsIgnoreCase(f) &&
+		return contactsSet.stream().anyMatch(contact -> contact.getFirstName().equalsIgnoreCase(f) &&
 				contact.getLast().equalsIgnoreCase(l));
 	}
 	
@@ -63,11 +65,11 @@ public class AddressBook
 		System.out.println("Enter last name");
 		String last_name = scanner.nextLine();
 		boolean found = false;
-		for (Contact_details contact : address_book) 
+		for (Contact_details contact : contactsSet) 
 		{
 			if ((contact.getFirstName()==first_name) && (contact.getLast()==last_name)) {
 				found=true;
-				address_book.remove(contact);
+				contactsSet.remove(contact);
 				System.out.println("Contact has been deleted");
 				break;
 			}
@@ -83,7 +85,7 @@ public class AddressBook
 		System.out.println("Enter Last name");
 		String last_name = scanner.nextLine();
 		boolean check = false;
-		for (Contact_details contact : address_book) {
+		for (Contact_details contact : contactsSet) {
 			if ((contact.getFirstName().equalsIgnoreCase(first_name)) && (contact.getLast().equalsIgnoreCase(last_name))) 
 			{
 				System.out.println("Enter Address");
@@ -92,7 +94,7 @@ public class AddressBook
 				contact.setCity(scanner.nextLine());
 				System.out.println("Enter State");
 				contact.setState(scanner.nextLine());
-				System.out.println("Enter ZIP");
+				System.out.println("Enter zip");
 				contact.setZip(scanner.nextLine());
 				System.out.println("Enter Phone Number");
 				contact.setPhone(scanner.nextLine());
@@ -114,7 +116,7 @@ public class AddressBook
 class addressBookDict extends AddressBook 
 {
 	private ArrayList<AddressBook> address_book = new ArrayList<AddressBook>();
-
+	ArrayList<String> List=new ArrayList<String>(); 
 	public void addAddressBook(AddressBook addr_book) {
 		address_book.add(addr_book);
 	}
@@ -139,18 +141,35 @@ class addressBookDict extends AddressBook
 			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(city)).forEach(c -> {
 				System.out.println(c.getFirstName() + " "+c.getLast());
 			});
-		});
-				
-//				(adb -> {
-//			HashSet<Contact_details> contacts = adb.getAddress_book();
-//			
-//			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(city)).forEach(c -> c.getFirstName());
-//		});
-		//	address_book.stream().filter(Contact_details -> Contact_details.getCity().equals(city))
-			//.forEach(Contact_details -> System.out
-				//	.println(Contact_details.getFirstName() + " " + Contact_details.getLast()));
-		
+		});	
 	}
+	
+	public void searchByState(String state) 
+	{
+		
+		System.out.println("Entered in addressbook: "+address_book);
+		address_book.stream().forEach(adb -> {
+			HashSet<Contact_details> contacts = adb.getAddress_book();
+			contacts.stream().filter(c -> c.getStateName().equalsIgnoreCase(state)).forEach(c -> {
+				System.out.println(c.getFirstName() + " "+c.getLast());
+			});
+		});	
+	}
+	
+	public void countByState(String state) 
+	{
+		
+		System.out.println("Entered in addressbook: "+address_book);
+		address_book.stream().forEach(adb -> {
+			HashSet<Contact_details> contacts = adb.getAddress_book();
+			contacts.stream().filter(c -> c.getStateName().equalsIgnoreCase(state)).forEach(c -> {
+				List.add(c.getFirstName());
+			});
+		});	
+		System.out.println("No. of people in state are: "+List.size());
+		List.clear();
+	}
+	
 	
 	public AddressBook returnAddressBook(String name) {
 		AddressBook addrBookPlace = address_book.get(0);

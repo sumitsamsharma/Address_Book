@@ -40,7 +40,8 @@ public class address {
 		String name;
 		while (book_dict) 
 		{
-			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" +"3. Search by city\n"+ "Enter 0 Exit");
+			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" +"3. Search a person by city\n"+ "4. Search a by state\n"
+					+ "5. Total no of people in city\n"+ "6. Total no of people in state\n" + "Enter 0 Exit");
 			choice1 = Integer.parseInt(scanner.nextLine());
 			switch (choice1) 
 			{
@@ -59,8 +60,21 @@ public class address {
 				  System.out.println("Enter the name of state");
 				  String state = scanner.nextLine();
 				  abd.searchByCity(state);
-				  break;		  
-  
+				  break;
+				  
+			  case 5:
+				  System.out.println("Enter the name of city to calculate no of people");
+				  String ct = scanner.nextLine();
+				  abd.countByCity(ct);
+				  break;	  
+              
+			  case 6:
+				  System.out.println("Enter the name of state to calculate no of people");
+				  String sta = scanner.nextLine();
+				  abd.countByState(sta);
+				  break;	  
+			 
+				  
 			  case 2:
 				  System.out.println("Enter the name of Address Book");
 				  name = scanner.nextLine();
