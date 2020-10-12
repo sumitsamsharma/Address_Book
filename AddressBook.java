@@ -8,16 +8,26 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import com.AddressBook.cityWiseSearch;  
-public class AddressBook extends Contact_details 
+//import com.AddressBook.cityWiseSearch;  
+public class AddressBook  
 {
 	private HashSet<Contact_details> address_book=new HashSet<Contact_details>();  
 	
-	ArrayList<cityWiseSearch> cityNameList=new ArrayList<cityWiseSearch>(); 
+	//ArrayList<cityWiseSearch> cityNameList=new ArrayList<cityWiseSearch>(); 
 	
 	private String name;
 	static Scanner scanner=new Scanner(System.in);
 	
+	
+	
+	public HashSet<Contact_details> getAddress_book() {
+		return address_book;
+	}
+
+	public void setAddress_book(HashSet<Contact_details> address_book) {
+		this.address_book = address_book;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -26,50 +36,17 @@ public class AddressBook extends Contact_details
 		return name;
 	}
 
-	class cityWiseSearch
-	{  	  
-		  String city;
-		  String name;
-		  String l;
-		  cityWiseSearch(String name,String city,String l)
-		  {  
-		     this.city=city;  
-		     this.name=name;   
-		     this.l=l;
-		  }  
-		}  
-	
-	public void addDetails(Contact_details contact) 
-	{
-		address_book.add(contact);
-		String name,city,l;
-		city=contact.getCity();
-		name=contact.getFirstName();
-		l=contact.getLast();
-		cityWiseSearch s=new cityWiseSearch(city,name,l); 
-		cityNameList.add(s);
-	}
-	
-	public void searchByCity(String city) 
-	{
-		  Iterator itr=cityNameList.iterator(); 
-		  System.out.println("Checking if city exists");
-		  System.out.println("Details are"+cityNameList);
-		  while(itr.hasNext())
-		  {  
-			  cityWiseSearch st=(cityWiseSearch)itr.next();
-			  System.out.println("Details are"+st.city);
-		      if(st.city==city)
-		      {
-		    	  System.out.println("City: "+st.city+"  Name: "+st.name+" "+st.l);
-		      }
-		  }    
-	}
 	
 	public void seeContacts() {
 		for (Contact_details c : address_book) {
 			System.out.println(c);
 		}
+	}
+	
+	public void addDetails(Contact_details contact) 
+	{
+		address_book.add(contact);
+		
 	}
 	
 	public boolean checkContacts(String f,String l) 
@@ -151,6 +128,28 @@ class addressBookDict extends AddressBook
 			}
 		}
 		return found;
+	}
+	
+	public void searchByCity(String city) 
+	{
+		
+		System.out.println("Entered in addressbook: "+address_book);
+		address_book.stream().forEach(adb -> {
+			HashSet<Contact_details> contacts = adb.getAddress_book();
+			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(city)).forEach(c -> {
+				System.out.println(c.getFirstName() + " "+c.getLast());
+			});
+		});
+				
+//				(adb -> {
+//			HashSet<Contact_details> contacts = adb.getAddress_book();
+//			
+//			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(city)).forEach(c -> c.getFirstName());
+//		});
+		//	address_book.stream().filter(Contact_details -> Contact_details.getCity().equals(city))
+			//.forEach(Contact_details -> System.out
+				//	.println(Contact_details.getFirstName() + " " + Contact_details.getLast()));
+		
 	}
 	
 	public AddressBook returnAddressBook(String name) {
