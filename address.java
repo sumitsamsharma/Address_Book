@@ -53,6 +53,12 @@ public class address {
 				  System.out.println("Enter the name of city");
 				  String city = scanner.nextLine();
 				  abd.searchByCity(city);
+				  break;	
+			
+			  case 4:
+				  System.out.println("Enter the name of state");
+				  String state = scanner.nextLine();
+				  abd.searchByCity(state);
 				  break;		  
   
 			  case 2:
