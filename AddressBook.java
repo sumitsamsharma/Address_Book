@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 //import com.AddressBook.cityWiseSearch;  
 
@@ -94,37 +95,33 @@ public class AddressBook
 	public void sortByName() 
 	{
 		Collections.sort(contactsSet, new SortbyName()); 
-		  
         System.out.println("\nSorted by Name"); 
-        for (int i=0; i<contactsSet.size(); i++) 
-            System.out.println(contactsSet.get(i)); 
+        contactsSet.stream().forEach(System.out::println);
 	}
 
 	public void sortByState() 
 	{
 		Collections.sort(contactsSet, new SortbyState()); 
-		  
         System.out.println("\nSorted by State"); 
-        for (int i=0; i<contactsSet.size(); i++) 
-            System.out.println(contactsSet.get(i)); 	
+        contactsSet.stream().forEach(System.out::println);
+        
 	}
 
 	public void sortByCity() 
 	{
-		Collections.sort(contactsSet, new SortbyCity()); 
-		  
+		Collections.sort(contactsSet, new SortbyCity()); 	  
         System.out.println("\nSorted by City"); 
-        for (int i=0; i<contactsSet.size(); i++) 
-            System.out.println(contactsSet.get(i)); 
+        contactsSet.stream().forEach(System.out::println);
 	}
 	
 	public void sortByzip() 
 	{
 		Collections.sort(contactsSet, new Sortbyzip()); 
 		  
-        System.out.println("\nSorted by zipcode"); 
-        for (int i=0; i<contactsSet.size(); i++) 
-            System.out.println(contactsSet.get(i)); 
+        System.out.println("\nSorted by zipcode");
+        contactsSet.stream().forEach(System.out::println);
+       // for (int i=0; i<contactsSet.size(); i++) 
+         //   System.out.println(contactsSet.get(i)); 
 		
 	}
 
