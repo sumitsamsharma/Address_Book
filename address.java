@@ -120,7 +120,15 @@ public class address {
 						   case 5:
 							    book.sortByName();
 							    break; 
-						     
+						   case 6:
+							    book.sortByzip();
+							    break; 	    
+						   case 7:
+							    book.sortByCity();
+							    break;
+						   case 8:
+							    book.sortByState();
+							    break; 	    
 						   default:
 							  addr_book=false;
 							  break;
