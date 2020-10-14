@@ -41,7 +41,7 @@ public class address {
 		while (book_dict) 
 		{
 			System.out.println("1. Add new Address Book\n" + "2. Edit an Address Book\n" +"3. Search a person by city\n"+ "4. Search a by state\n"
-					+ "5. Total no of people in city\n"+ "6. Total no of people in state\n" + "Enter 0 Exit");
+					+ "5. Total no of people in city\n"+ "6. Total no of people in state\n" +  "\n Enter 0 Exit");
 			choice1 = Integer.parseInt(scanner.nextLine());
 			switch (choice1) 
 			{
@@ -64,8 +64,8 @@ public class address {
 				  
 			  case 5:
 				  System.out.println("Enter the name of city to calculate no of people");
-				  String ct = scanner.nextLine();
-				  abd.countByCity(ct);
+				  String c = scanner.nextLine();
+				  abd.countByCity(c);
 				  break;	  
               
 			  case 6:
@@ -88,7 +88,8 @@ public class address {
 					while (addr_book) 
 					{
 						System.out.println("1. Add contact\n" + "2. View Contacts\n"
-								+ "3. Edit a contact\n" + "4. Delete a contact\n" + "Enter 0 to exit");
+								+ "3. Edit a contact\n" + "4. Delete a contact\n" +"5. Sort entries by name\n" + "6. Sort entries by zip\n" 
+								+"7. Sort entries by city\n" + "8. Sort entries by state\n" +"\nEnter 0 to exit");
 						choice2 = Integer.parseInt(scanner.nextLine());
 						switch (choice2) 
 						{
@@ -116,6 +117,10 @@ public class address {
 						   case 4:
 							    book.deleteContact();
 							    break;
+						   case 5:
+							    book.sortByName();
+							    break; 
+						     
 						   default:
 							  addr_book=false;
 							  break;

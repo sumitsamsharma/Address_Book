@@ -1,6 +1,8 @@
 package com;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,11 +12,43 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 //import com.AddressBook.cityWiseSearch;  
-public class AddressBook  
+
+class SortbyName implements Comparator<Contact_details> 
+{  
+    public int compare(Contact_details a, Contact_details b) 
+    { 
+    	return a.getFirstName().compareTo(b.getFirstName()); 
+    } 
+} 
+
+class Sortbyzip implements Comparator<Contact_details> 
+{  
+    public int compare(Contact_details a, Contact_details b) 
+    { 
+    	return a.getZip().compareTo(b.getZip()); 
+    } 
+} 
+
+class SortbyState implements Comparator<Contact_details> 
+{  
+    public int compare(Contact_details a, Contact_details b) 
+    { 
+    	return a.getStateName().compareTo(b.getStateName()); 
+    } 
+} 
+
+class SortbyCity implements Comparator<Contact_details> 
+{  
+    public int compare(Contact_details a, Contact_details b) 
+    { 
+    	return a.getCity().compareTo(b.getCity()); 
+    } 
+} 
+
+public class AddressBook 
 {
-	private HashSet<Contact_details> contactsSet=new HashSet<Contact_details>();  
-	Map<String,ArrayList<Contact_details>> city_map = new HashMap<>();
-	Map<String,ArrayList<Contact_details>> state_map = new HashMap<>();
+	private ArrayList<Contact_details> contactsSet=new ArrayList<Contact_details>();  
+	//private ArrayList<Contact_details> sorted = new ArrayList<>();
 	
 	
 	private String name;
@@ -22,11 +56,11 @@ public class AddressBook
 	
 	
 	
-	public HashSet<Contact_details> getAddress_book() {
+	public ArrayList<Contact_details> getAddress_book() {
 		return contactsSet;
 	}
 
-	public void setAddress_book(HashSet<Contact_details> address_book) {
+	public void setAddress_book(ArrayList<Contact_details> address_book) {
 		this.contactsSet = address_book;
 	}
 
@@ -57,8 +91,45 @@ public class AddressBook
 				contact.getLast().equalsIgnoreCase(l));
 	}
 	
-	
+	public void sortByName() 
+	{
+		Collections.sort(contactsSet, new SortbyName()); 
+		  
+        System.out.println("\nSorted by Name"); 
+        for (int i=0; i<contactsSet.size(); i++) 
+            System.out.println(contactsSet.get(i)); 
+	}
 
+	public void sortByState() 
+	{
+		Collections.sort(contactsSet, new SortbyState()); 
+		  
+        System.out.println("\nSorted by State"); 
+        for (int i=0; i<contactsSet.size(); i++) 
+            System.out.println(contactsSet.get(i)); 	
+	}
+
+	public void sortByCity() 
+	{
+		Collections.sort(contactsSet, new SortbyCity()); 
+		  
+        System.out.println("\nSorted by City"); 
+        for (int i=0; i<contactsSet.size(); i++) 
+            System.out.println(contactsSet.get(i)); 
+	}
+	
+	public void sortByzip() 
+	{
+		Collections.sort(contactsSet, new Sortbyzip()); 
+		  
+        System.out.println("\nSorted by zipcode"); 
+        for (int i=0; i<contactsSet.size(); i++) 
+            System.out.println(contactsSet.get(i)); 
+		
+	}
+
+
+	
 	public void deleteContact() {
 		System.out.println("Enter first name");
 		String first_name = scanner.nextLine();
@@ -137,7 +208,7 @@ class addressBookDict extends AddressBook
 		
 		System.out.println("Entered in addressbook: "+address_book);
 		address_book.stream().forEach(adb -> {
-			HashSet<Contact_details> contacts = adb.getAddress_book();
+			ArrayList<Contact_details> contacts = adb.getAddress_book();
 			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(city)).forEach(c -> {
 				System.out.println(c.getFirstName() + " "+c.getLast());
 			});
@@ -149,7 +220,7 @@ class addressBookDict extends AddressBook
 		
 		System.out.println("Entered in addressbook: "+address_book);
 		address_book.stream().forEach(adb -> {
-			HashSet<Contact_details> contacts = adb.getAddress_book();
+			ArrayList<Contact_details> contacts = adb.getAddress_book();
 			contacts.stream().filter(c -> c.getStateName().equalsIgnoreCase(state)).forEach(c -> {
 				System.out.println(c.getFirstName() + " "+c.getLast());
 			});
@@ -161,12 +232,26 @@ class addressBookDict extends AddressBook
 		
 		System.out.println("Entered in addressbook: "+address_book);
 		address_book.stream().forEach(adb -> {
-			HashSet<Contact_details> contacts = adb.getAddress_book();
+			ArrayList<Contact_details> contacts = adb.getAddress_book();
 			contacts.stream().filter(c -> c.getStateName().equalsIgnoreCase(state)).forEach(c -> {
 				List.add(c.getFirstName());
 			});
 		});	
 		System.out.println("No. of people in state are: "+List.size());
+		List.clear();
+	}
+	
+	public void countByCity(String cit) 
+	{
+		
+		System.out.println("Entered in addressbook: "+address_book);
+		address_book.stream().forEach(adb -> {
+			ArrayList<Contact_details> contacts = adb.getAddress_book();
+			contacts.stream().filter(c -> c.getCity().equalsIgnoreCase(cit)).forEach(c -> {
+				List.add(c.getFirstName());
+			});
+		});	
+		System.out.println("No. of people in city are: "+List.size());
 		List.clear();
 	}
 	
