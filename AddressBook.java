@@ -1,4 +1,8 @@
 package com;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +15,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+
 
 //import com.AddressBook.cityWiseSearch;  
 
@@ -176,6 +182,52 @@ public class AddressBook
 		if (check == false)
 			System.out.println("Contact not found");
 			
+	}
+	
+	public void readAfile() throws FileNotFoundException {
+		File file=new File("D:\\Contact_details.txt");
+		Scanner scanner = new Scanner(file);
+		while(scanner.hasNextLine()){
+			try
+			{
+				Contact_details c= new Contact_details();
+				String data=scanner.nextLine();
+				String[] store=data.split(" ");
+				c.setFirstName(store[0]);
+				c.setLast(store[1]);
+				c.setAddress(store[2]);
+				c.setCity(store[3]);
+				c.setState(store[4]);
+				c.setZip(store[5]);
+				c.setPhone(store[6]);
+				c.setEmail(store[7]);
+				addDetails(c);
+				
+			}
+			catch (Exception e)
+			{
+				System.out.println("Not a valid contact");
+			}
+		}
+
+	}
+
+	public void writeFile() {
+		try {
+			
+			FileWriter writer = new FileWriter("D:\\AddressBook.txt",true);
+			
+			for (Contact_details c: contactsSet)
+			{
+				writer.write(c.getFirstName()+" "+c.getLast()+" "+c.getAddress()+" "+c.getCity()+" "+c.getStateName()+" "+c.getStateName()+" "
+						+c.getPhone()+" "+c.getEmail()+"\n");
+			}
+			writer.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("File does not exist");
+		}
 	}
 
 	
