@@ -1,6 +1,8 @@
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -8,6 +10,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -229,7 +232,26 @@ public class AddressBook
 			contactsSet.add(c);
 		}
 	}
+	
+	public void jsonWrite() throws IOException {
+		String file = "D:\\jsonWrite.txt";
+		Gson write = new Gson();
+		String json = write.toJson(contactsSet);
+		FileWriter writer = new FileWriter(file);
+		writer.write(json);
+		writer.close();
+	}
 
+	public void jsonRead() throws FileNotFoundException {
+		String file = "D:\\jsonRead.txt";
+		Gson gson = new Gson();
+		BufferedReader read= new BufferedReader(new FileReader(file));
+		Contact_details[] view= gson.fromJson(read, Contact_details[].class);
+		List<Contact_details> contactList = Arrays.asList(view);
+		for (Contact_details c : contactList){
+			contactsSet.add(c);
+		}
+	}
 	
 	public void readFile() throws FileNotFoundException {
 		File file=new File("D:\\Contact_details.txt");

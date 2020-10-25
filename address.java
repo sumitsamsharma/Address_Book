@@ -1,7 +1,11 @@
 package com;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 public class address {
 	static Scanner scanner = new Scanner(System.in);
 	public static Contact_details getContact() {
@@ -90,7 +94,9 @@ public class address {
 					{
 						System.out.println("1. Add contact\n" + "2. View Contacts\n"
 								+ "3. Edit a contact\n" + "4. Delete a contact\n" +"5. Sort entries by name\n" + "6. Sort entries by zip\n" 
-								+"7. Sort entries by city\n" + "8. Sort entries by state\n" +"\nEnter 0 to exit");
+								+"7. Sort entries by city\n" + "8. Sort entries by state\n"+"\n 11. Write in CSV file"+
+								"\n 12. Read from CSV file" +"\n 13. Write in GSON file"+
+								"\n 14. Read from GSON file" +"\nEnter 0 to exit");
 						choice2 = Integer.parseInt(scanner.nextLine());
 						switch (choice2) 
 						{
@@ -141,6 +147,33 @@ public class address {
 							case 10:
 								book.writeFile();
 								break;
+								
+							case 11:
+								try 
+								{
+									book.writeCSV();
+								} catch (IOException e) {
+									e.printStackTrace();
+								} catch (CsvDataTypeMismatchException e) {
+									e.printStackTrace();
+								} catch (CsvRequiredFieldEmptyException e) {
+									e.printStackTrace();
+								}
+								break;
+							case 12:
+								try {
+									book.readCSV();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+								
+								break;	
+							case 13:
+								book.gsonWrite();
+								break;
+							case 14:
+								book.gsonRead();
+								break;	
 							  	    
 						   default:
 							  addr_book=false;
