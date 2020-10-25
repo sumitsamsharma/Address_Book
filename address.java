@@ -1,5 +1,6 @@
 package com;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 public class address {
 	static Scanner scanner = new Scanner(System.in);
@@ -74,7 +75,7 @@ public class address {
 				  abd.countByState(sta);
 				  break;	  
 			 
-				  
+			 
 			  case 2:
 				  System.out.println("Enter the name of Address Book");
 				  name = scanner.nextLine();
@@ -128,7 +129,19 @@ public class address {
 							    break;
 						   case 8:
 							    book.sortByState();
-							    break; 	    
+							    break; 	  
+						   case 9:
+								try{
+									book.readFile();
+								}catch (FileNotFoundException e){
+									System.out.println("File not found");
+								}
+								break;
+								
+							case 10:
+								book.writeFile();
+								break;
+							  	    
 						   default:
 							  addr_book=false;
 							  break;

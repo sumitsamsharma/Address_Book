@@ -1,8 +1,12 @@
-package com;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,6 +19,14 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
 
 
 
@@ -183,8 +195,43 @@ public class AddressBook
 			System.out.println("Contact not found");
 			
 	}
+
+	public void writeCSV() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+		String CSV_write_file = "F:\\AddressBookCSVwrite.txt";
+		Writer writer = Files.newBufferedWriter(Paths.get(CSV_write_file));
+
+		StatefulBeanToCsv<Contact_details> beanToCsv=new StatefulBeanToCsvBuilder(writer).withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).build();
+		beanToCsv.write(contactsSet);
+		writer.close();
+
+	}
+
+	public void readCSV() throws IOException
+	{
+		String file_read = "D:\\AddressCSVreading.txt";
+		Reader reader = Files.newBufferedReader(Paths.get(file_read));
+
+		CSVReader readCSV = new CSVReader(reader);
+
+		String[] adding;
+		adding = readCSV.readNext();
+		while((adding = readCSV.readNext())!=null) 
+		{
+			Contact_details c = new Contact_details();
+			c.setFirstName(adding[0]);
+			c.setLast(adding[1]);
+			c.setAddress(adding[2]);
+			c.setCity(adding[3]);
+			c.setEmail(adding[4]);
+			c.setPhone(adding[5]);
+			c.setState(adding[6]);
+			c.setZip(adding[7]);
+			contactsSet.add(c);
+		}
+	}
+
 	
-	public void readAfile() throws FileNotFoundException {
+	public void readFile() throws FileNotFoundException {
 		File file=new File("D:\\Contact_details.txt");
 		Scanner scanner = new Scanner(file);
 		while(scanner.hasNextLine()){
@@ -192,31 +239,31 @@ public class AddressBook
 			{
 				Contact_details c= new Contact_details();
 				String data=scanner.nextLine();
-				String[] store=data.split(" ");
-				c.setFirstName(store[0]);
-				c.setLast(store[1]);
-				c.setAddress(store[2]);
-				c.setCity(store[3]);
-				c.setState(store[4]);
-				c.setZip(store[5]);
-				c.setPhone(store[6]);
-				c.setEmail(store[7]);
+				String[] add=data.split(" ");
+				c.setFirstName(add[0]);
+				c.setLast(add[1]);
+				c.setAddress(add[2]);
+				c.setCity(add[3]);
+				c.setPhone(add[4]);
+				c.setEmail(add[5]);
+				c.setState(add[6]);
+				c.setZip(add[7]);
 				addDetails(c);
 				
 			}
 			catch (Exception e)
 			{
-				System.out.println("Not a valid contact");
+				System.out.println("It is not a valid contact");
 			}
 		}
 
 	}
 
 	public void writeFile() {
-		try {
+		try 
+		{
 			
-			FileWriter writer = new FileWriter("D:\\AddressBook.txt",true);
-			
+			FileWriter writer = new FileWriter("D:\\AddressBook.txt",true);			
 			for (Contact_details c: contactsSet)
 			{
 				writer.write(c.getFirstName()+" "+c.getLast()+" "+c.getAddress()+" "+c.getCity()+" "+c.getStateName()+" "+c.getStateName()+" "
@@ -308,7 +355,8 @@ class addressBookDict extends AddressBook
 	public AddressBook returnAddressBook(String name) {
 		AddressBook addrBookPlace = address_book.get(0);
 		for (AddressBook ab : address_book) {
-			if (ab.getName().equals(name)) {
+			if (ab.getName().equals(name)) 
+			{
 				addrBookPlace = ab;
 				break;
 			}
